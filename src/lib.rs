@@ -1,4 +1,5 @@
-use wasm_bindgen::prelude::wasm_bindgen;
+use serde_wasm_bindgen::to_value;
+use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
 pub struct UAM {
@@ -69,5 +70,29 @@ impl UAM {
         }
 
         Some(t)
+    }
+}
+
+#[wasm_bindgen]
+impl UAMs {
+    pub fn new() -> UAMs {
+        UAMs { uams: Vec::new() }
+    }
+
+    pub fn add(&mut self, uam: UAM) {
+        self.uams.push(uam);
+    }
+
+    pub fn predict_collisions(&self) -> JsValue {
+        let mut collisions = Vec::new();
+        for i in 0..self.uams.len() {
+            for j in i + 1..self.uams.len() {
+                if let Some(t) = self.uams[i].predict_collision(&self.uams[j]) {
+                    collisions.push((self.uams[i].clone(), self.uams[j].clone()));
+                }
+            }
+            to_value(&collisions).unwrap();
+            JsValue::from_serde(&collisions).unwrap()
+        }
     }
 }
