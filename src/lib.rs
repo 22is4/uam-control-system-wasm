@@ -2,6 +2,7 @@ use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
+#[derive(Clone, serde::Serialize)]
 pub struct UAM {
     id: u32,
     time_boot_ms: u32,
@@ -87,12 +88,11 @@ impl UAMs {
         let mut collisions = Vec::new();
         for i in 0..self.uams.len() {
             for j in i + 1..self.uams.len() {
-                if let Some(t) = self.uams[i].predict_collision(&self.uams[j]) {
+                if let Some(_t) = self.uams[i].predict_collision(&self.uams[j]) {
                     collisions.push((self.uams[i].clone(), self.uams[j].clone()));
                 }
             }
-            to_value(&collisions).unwrap();
-            JsValue::from_serde(&collisions).unwrap()
         }
+        to_value(&collisions).unwrap()
     }
 }
