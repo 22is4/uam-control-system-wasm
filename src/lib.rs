@@ -4,12 +4,12 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 #[derive(Clone, serde::Serialize)]
 pub struct UAM {
-    lat: f64,
-    lon: f64,
-    alt: f64,
-    vx: f64,
-    vy: f64,
-    vz: f64,
+    lat: f64, // latitude
+    lon: f64, // longitude
+    alt: f64, // altitude
+    vx: f64,  // velocity x
+    vy: f64,  // velocity y
+    vz: f64,  // velocity z
 }
 
 #[wasm_bindgen]
