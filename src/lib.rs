@@ -4,16 +4,12 @@ use wasm_bindgen::prelude::*;
 #[wasm_bindgen]
 #[derive(Clone, serde::Serialize)]
 pub struct UAM {
-    id: u32,
-    time_boot_ms: u32,
     lat: f64,
     lon: f64,
     alt: f64,
-    relative_alt: f64,
     vx: f64,
     vy: f64,
     vz: f64,
-    hdg: f64,
 }
 
 #[wasm_bindgen]
@@ -23,29 +19,14 @@ pub struct UAMs {
 
 #[wasm_bindgen]
 impl UAM {
-    pub fn new(
-        id: u32,
-        time_boot_ms: u32,
-        lat: f64,
-        lon: f64,
-        alt: f64,
-        relative_alt: f64,
-        vx: f64,
-        vy: f64,
-        vz: f64,
-        hdg: f64,
-    ) -> UAM {
+    pub fn new(lat: f64, lon: f64, alt: f64, vx: f64, vy: f64, vz: f64) -> UAM {
         UAM {
-            id,
-            time_boot_ms,
             lat,
             lon,
             alt,
-            relative_alt,
             vx,
             vy,
             vz,
-            hdg,
         }
     }
 
